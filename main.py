@@ -9,7 +9,7 @@ play_genre = pd.read_csv('PlayTimeGenre_funcion.csv', low_memory=False)
 user_genre= pd.read_csv('UserForGenre_funcion.csv', low_memory=False)
 user_recommend= pd.read_csv('UsersRecommend_funcion.csv', low_memory=False)
 juegos_no_recom= pd.read_csv('UsersNotRecommend_funcion.csv', low_memory=False)
-df_sentiment= pd.read_csv('sentiment_analysis_funcion.csv', low_memory=False)
+df_sentimiento_analisis= pd.read_csv('sentiment_analysis_funcion.csv', low_memory=False)
 
 # Funcion def PlayTimeGenre
 
@@ -42,28 +42,21 @@ if __name__=="__main__":
 @app.get("/user_genre/{genres}")
 
 def UserForGenre(genres: str):
-    # Filtrar el DataFrame para incluir solo el género específico
+    
     df_filtered = user_genre[user_genre['genres'] == genres]
 
-    # Corregir los valores de 'release_date' que no siguen el formato esperado
     df_filtered = df_filtered[df_filtered['release_date'].str.match(r'\d{4}-\d{2}-\d{2}', na=False)]
 
-    # Convertir 'release_date' a un objeto de fecha y hora válido
     df_filtered['release_date'] = pd.to_datetime(df_filtered['release_date'], format='%Y-%m-%d')
 
-    # Agrupar por usuario y año de lanzamiento, y sumar las horas jugadas
     user_year_playtime = df_filtered.groupby(['user_id', df_filtered['release_date'].dt.year])['playtime_forever'].sum().reset_index()
 
-    # Encontrar el usuario con más horas jugadas para el género dado
     max_user = user_year_playtime.groupby('user_id')['playtime_forever'].sum().idxmax()
 
-    # Filtrar solo las filas correspondientes al usuario con más horas jugadas
     df_max_user = user_year_playtime[user_year_playtime['user_id'] == max_user]
 
-    # Agrupar por año y sumar las horas jugadas para el usuario
     max_user_year_playtime = df_max_user.groupby('release_date')['playtime_forever'].sum()
 
-    # Convertir el resultado a una lista de diccionarios
     max_user_year_playtime_list = [{"Año": year, "Horas": hours} for year, hours in zip(max_user_year_playtime.index, max_user_year_playtime)]
 
     return {
@@ -77,18 +70,13 @@ def UserForGenre(genres: str):
 def UsersRecommend(year: int):
     '''Devuelve los 3 juegos más recomendados por usuarios para el año dado.'''
     
-    # Filtrar reseñas recomendadas para el año especificado
     filtrando_reviews = user_recommend[(user_recommend['release_date'].str.contains(str(year), regex=False, na=False)) & (user_recommend['recommend'] == True)]
 
-
-    # Contar la cantidad de reseñas por título de juego
     game_counts = filtrando_reviews['title'].value_counts().reset_index()
     game_counts.columns = ['title', 'count']
 
-    # Seleccionar los 3 juegos más recomendados
     top_games = game_counts.head(3)
 
-    # Crear una lista de diccionarios con los juegos más recomendados
     top_3_games_list = [{"Puesto {}: {}".format(i+1, game): count} for i, (game, count) in enumerate(zip(top_games['title'], top_games['count']))]
 
     return top_3_games_list
@@ -118,28 +106,20 @@ def juegosNoRecomendados(año: int):
 if __name__=="__main__":
     uvicorn.run("main:app",port=8000,reload=True)
     
+    
 # Función de Sentimiento   
-@app.get("/release_date/{año}")
+@app.get("/anio")
 
-def sentiment_analysis(año):
+def sentiment_analysis(anio:int):
     '''
-    Función que devuelve la cantidad de registros de reseñas de usuarios categorizados con un análisis de sentimiento para un año de lanzamiento específico.
-    
-    Parámetros:
-    - año (int): Año de lanzamiento de los juegos.
-    
-    Retorna:
-    - Un diccionario con la cantidad de registros para cada categoría de análisis de sentimiento.
-    Ejemplo de retorno: {"Negative": 182, "Neutral": 120, "Positive": 278}
+    Función que devuelve la cantidad de registros de reseñas de usuarios 
+    categorizados con un análisis de sentimiento para un año de lanzamiento específico. 
     '''
     
-    # Filtrar las reseñas por el año especificado
-    df_filtrado = df_sentiment[df_sentiment['release_date'].str.startswith(str(año))]
+    df_filtrado = df_sentimiento_analisis[df_sentimiento_analisis['release_date'].str.startswith(str(anio))]
 
-    # Contar la cantidad de registros para cada categoría de análisis de sentimiento
     sentiment_counts = df_filtrado['sentiment_analysis'].value_counts()
 
-    # Crear un diccionario con los resultados
     result_dict = {"Negative": 0, "Neutral": 0, "Positive": 0}
     
     for index, count in sentiment_counts.items():
@@ -151,3 +131,6 @@ def sentiment_analysis(año):
             result_dict["Positive"] = count
 
     return result_dict
+
+if __name__=="__main__":
+    uvicorn.run("main:app",port=8000,reload=True)

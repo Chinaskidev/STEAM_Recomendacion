@@ -5,3 +5,6 @@ EDA/
 ETL/
 
 entorno/
+
+*.csv
+funciones/
