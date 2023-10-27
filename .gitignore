@@ -1,6 +1,7 @@
 *.json
 
-*.EDA
+EDA/
 
-*.ETL
+ETL/
 
+entorno/
