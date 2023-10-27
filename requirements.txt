@@ -1,5 +1,0 @@
-fastapi
-numpy
-pandas
-uvicorn
-main.py
