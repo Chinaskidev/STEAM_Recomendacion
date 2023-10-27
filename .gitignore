@@ -4,7 +4,7 @@ EDA/
 
 ETL/
 
-entorno/
+/entorno
 
 *.csv
 funciones/
