@@ -13,7 +13,7 @@ df_sentimiento_analisis= pd.read_csv('sentiment_analysis_funcion.csv', low_memor
 
 # Funcion def PlayTimeGenre
 
-@app.get("/release_date/{genres}")
+@app.get("/genero/{genres}")
 
 def PlayTimeGenre(genres: str):
     df_filtered = play_genre[play_genre['genres'] == genres]
@@ -29,7 +29,7 @@ def PlayTimeGenre(genres: str):
         .idxmax()
     )
 
-    df_max_playtime = df_filtered[df_filtered['item_id'] == max_playtime]
+    df_max_playtime = df_filtered[df_filtered['item_id'] == max_playtime[0]]
     max_playtime_by_year = df_max_playtime.groupby('release_date')['playtime_forever'].sum()
 
     max_playtime_list = [{"Año": str(year), "Horas": hours} for year, hours in max_playtime_by_year.items()]
@@ -38,6 +38,7 @@ def PlayTimeGenre(genres: str):
         f"Genero con más horas jugadas {genres}": max_playtime,
         "Horas jugadas": max_playtime_list
     }
+
 
 if __name__=="__main__":
     uvicorn.run("main:app",port=8000,reload=True)
@@ -124,23 +125,27 @@ if __name__=="__main__":
 # Función de Sentimiento   
 @app.get("/anio")
 
-def sentiment_analysis(anio: int):
+def sentiment_analysis(anio):
     '''
     Función que devuelve la cantidad de registros de reseñas de usuarios 
-    categorizados con un análisis de sentimiento para un año de lanzamiento específico. 
+    categorizados con un análisis de sentimiento para un anio de lanzamiento específico. 
     '''
-
     df_filtrado = df_sentimiento_analisis[df_sentimiento_analisis['release_date'].str.startswith(str(anio))]
 
     sentiment_counts = df_filtrado['sentiment_analysis'].value_counts()
 
-    result_dict = {
-        "Negative": sentiment_counts.get(0, 0),
-        "Neutral": sentiment_counts.get(1, 0),
-        "Positive": sentiment_counts.get(2, 0)
-    }
+    result_dict = {"Negative": 0, "Neutral": 0, "Positive": 0}
+    
+    for index, count in sentiment_counts.items():
+        if index == 0:
+            result_dict["Negative"] = count
+        elif index == 1:
+            result_dict["Neutral"] = count
+        elif index == 2:
+            result_dict["Positive"] = count
 
     return result_dict
+
 
 if __name__=="__main__":
     uvicorn.run("main:app",port=8000,reload=True)
