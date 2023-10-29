@@ -5,7 +5,7 @@ import uvicorn
 app = FastAPI()
 
 # Lectura de todos los CSV
-play_genre = pd.read_csv('PlayTimeGenre_funcion.csv', low_memory=False)
+play_genre = pd.read_csv('horas_jugadas_genero.csv', low_memory=False)
 
 # Funcion 1
 
