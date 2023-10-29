@@ -1,1 +1,7 @@
 /entorno
+
+/EDA
+/ETL
+/__pycache__
+
+*.csv
