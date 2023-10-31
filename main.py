@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 import pandas as pd
 import uvicorn
+import numpy as np
+import scipy as sp
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = FastAPI()
 
@@ -10,6 +13,7 @@ user_genre= pd.read_csv('usuario_horas_genero.csv', low_memory=False)
 user_recommend= pd.read_csv('UsersRecommend_funcion.csv', low_memory=False)
 juegos_no_recom= pd.read_csv('UsersNotRecommend_funcion.csv', low_memory=False)
 df_sentimiento_analisis= pd.read_csv('sentiment_analysis_funcion.csv', low_memory=False)
+render_model= pd.read_csv('modeloo_render.csv',low_memory=False)
 
 
 # Funcion def PlayTimeGenre
@@ -141,3 +145,36 @@ def sentiment_analysis(anio):
 
 if __name__=="__main__":
     uvicorn.run("main:app",port=8000,reload=True)
+    
+
+# Función sistema de recomendación item-item
+@app.get("/juegos_item_item/{item_id}")
+
+def juegos_poritem(item_id: int):
+    juego = render_model[render_model['item_id'] == item_id]
+
+    if juego.empty:
+        return {"mensaje": f"El juego '{item_id}' no posee nada."}
+
+    userX = juego.index[0]
+
+    df_sample = render_model.sample(n=33, random_state=42)
+
+    juego_input = [juego.iloc[0, 3:]]  # Características del juego de entrada
+
+    sim_scores = cosine_similarity(juego_input, df_sample.iloc[:, 3:])
+
+    sim_scores = sim_scores[0]
+
+    juegos_similares = [(i, sim_scores[i]) for i in range(len(sim_scores)) if i != userX]
+    juegos_similares = sorted(juegos_similares, key=lambda x: x[1], reverse=True)
+
+    juegos_simi_indices = [i[0] for i in juegos_similares[:5]]
+    nombres_juegossimi = df_sample.loc[juegos_simi_indices, 'app_name'].tolist()
+
+    return {"juegos_similares": nombres_juegossimi}
+
+# Ejecutar el servidor
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
