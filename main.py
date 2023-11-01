@@ -152,7 +152,7 @@ if __name__=="__main__":
     uvicorn.run("main:app",port=8000,reload=True)
     
 
-# Función sistema de recomendación item-item
+# Función Sistema de recomendación Item-Item
 
 @app.get("/juegos_item_item/{item_id}")
 
@@ -179,6 +179,35 @@ def juegos_poritem(item_id: int):
     nombres_juegossimi = df_sample.loc[juegos_simi_indices, 'app_name'].tolist()
 
     return {"juegos_similares": nombres_juegossimi}
+
+# Ejecutar el servidor
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+    
+    
+    
+# Función Sistema de recomendación Usuario-Item
+
+
+@app.get("/juegos_usuario_item/{user_id}")
+
+def recomendacion_usuario(user_id: str):
+    # Encuentra con el user_id los juegos recomendados
+    if user_id in render_model['user_id'].values:
+        juegos = render_model.index[render_model['user_id'] == user_id].tolist()[0]
+        
+        juego_caracteristicas = render_model.iloc[juegos, 3:].values.reshape(1, -1)
+        
+        render_similitud = cosine_similarity(render_model.iloc[:, 3:], juego_caracteristicas)
+        juegos_similaresrecomend = render_similitud.argsort(axis=0)[::-1][1:6]
+        juegos_similaresrecomend = juegos_similaresrecomend.flatten()[1:]
+        juegos_similares = render_model.iloc[juegos_similaresrecomend]['app_name']
+        
+        return juegos_similares  
+    else:
+        return "El juego con el user_id especificado no existe en la base de datos."
+
 
 # Ejecutar el servidor
 if __name__ == "__main__":
