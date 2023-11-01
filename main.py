@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI  # Importo las librerias que utilizare
 import pandas as pd
 import uvicorn
 import numpy as np
@@ -39,10 +39,11 @@ def PlayTimeGenre(genres):
     }
 
 if __name__=="__main__":
-    uvicorn.run("main:app",port=8000,reload=True)
+    uvicorn.run("main:app",port=8000,reload=True) #Corró la función
     
     
 # Funcion def UserForGenre
+
 @app.get("/usuario/{genres}")
 
 def UserForGenre(genres: str):
@@ -70,10 +71,12 @@ def UserForGenre(genres: str):
     }
 
 # Funcion def UsersRecommend
+
 @app.get("/year")
 
 def UsersRecommend(year: int):
-    '''Devuelve los 3 juegos más recomendados por usuarios para el año dado por un usuario específico.'''
+    '''Devuelve los 3 juegos más recomendados por usuarios 
+        para el año dado por un usuario específico.'''
 
     filtered_reviews = user_recommend[(user_recommend['release_date'].str.contains(str(year), regex=False, na=False)) & (user_recommend['recommend'] == True)]
 
@@ -94,6 +97,7 @@ if __name__=="__main__":
     
     
 # Funcion def juegosNoRecomendados
+
 @app.get("/año")
 
 def juegosNoRecomendados(año: int):
@@ -119,6 +123,7 @@ if __name__=="__main__":
     
     
 # Función de Sentimiento   
+
 @app.get("/anio")
 
 def sentiment_analysis(anio):
@@ -148,6 +153,7 @@ if __name__=="__main__":
     
 
 # Función sistema de recomendación item-item
+
 @app.get("/juegos_item_item/{item_id}")
 
 def juegos_poritem(item_id: int):
