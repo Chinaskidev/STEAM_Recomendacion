@@ -35,9 +35,12 @@ El proyecto se diseñó siguiendo una estructura basada en principios fundamenta
 - ETL (Extracción, Transformación y Carga): Proceso de tratamiento de datos para asegurar su adecuada preparación. [ETL](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/PI_etl.ipynb)
 
 - EDA (Análisis Exploratorio de Datos): Análisis en profundidad para comprender la naturaleza y características de los datos. [EDA](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/PI_EDA.ipynb)
-- Funciones (endpoints) para el funcionamiento de la API: Implementación de funcionalidades clave para el funcionamiento de la interfaz de programación de aplicaciones. [Funciones](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/funciones.ipynb)
+
+- Funciones (endpoints) para el funcionamiento de la API: Implementación de funciones claves para el funcionamiento de la API. [Funciones](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/funciones.ipynb)
+
 - Modelos de Aprendizaje: Desarrollo de modelos de Machine Learning para el análisis y recomendación de datos. [Modelo](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/main.py)
-- Implementación de la API utilizando RENDER para el despliegue: Proceso de despliegue utilizando la plataforma RENDER para asegurar su disponibilidad y funcionalidad.
+
+- Implementación de la API utilizando RENDER para el despliegue: Proceso de despliegue utilizando la plataforma RENDER para asegurar su disponibilidad y funcionalidad.  [Deploy](https://deploy-9w66.onrender.com)
 
 ## ETL (Extracción, Transformación y Carga)
 
@@ -51,13 +54,13 @@ Durante esta fase, se realizó un análisis minucioso de los datos, lo cual resu
 
 - Feature Engineering
 
-Dentro del dataset de user_reviews, se recopilan reseñas de juegos realizadas por diversos usuarios. Como parte del desafío de negocio, se me asignó la tarea de crear una columna de sentimiento. Para llevar a cabo esta tarea, se empleó una librería de Procesamiento del Lenguaje Natural (NLP) TextBlob ,con el fin de generar esta columna de sentimiento. Se estableció una escala donde el valor '0' corresponde a una valoración negativa, '1' indica neutralidad y '2' representa una valoración positiva. Este enfoque permitió categorizar las reseñas en base a su sentimiento, proporcionando así una capa adicional de comprensión y análisis en el dataset.
+Dentro del dataset de **user_reviews**, se recopilan reseñas de juegos realizadas por diversos usuarios. Como parte del desafío del proyecto, se me asignó la tarea de crear una columna de sentimiento. Para llevar a cabo esta tarea, se empleó una librería de Procesamiento del Lenguaje Natural (NLP) TextBlob, con el fin de generar esta columna de sentimiento. Se estableció una escala donde el valor '0' corresponde a una valoración negativa, '1' indica neutralidad y '2' representa una valoración positiva. Este enfoque permitió categorizar las reseñas en base a su sentimiento, proporcionando así una capa adicional de comprensión y análisis en el dataset.
 
 Acá el trabajo realizado: [EDA](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/PI_EDA.ipynb)
 
 ## Construcción de la API
 
-Para el desarrollo de la API, he empleado el framework FASTAPI. A continuación, se detallan las funciones creadas para los endpoints que serán consumidos en nuestra API:
+Para el desarrollo de la API, he utilizado el framework FASTAPI. A continuación, se detallan las funciones creadas para los endpoints que serán consumidos en nuestra API:
 
 1. PlayTimeGenre(genero): Esta función devuelve el año con la mayor cantidad de horas jugadas para el género especificado.
 
@@ -89,7 +92,7 @@ Acá el trabajo realizado: [Modelo/Machine-Learning](https://github.com/Chinaski
 
 ## FastAPI
 
-Si deseaejecutar la API desde el localhost debe seguir los siguientes pasos: 
+Si desea ejecutar la API desde el localhost debe seguir los siguientes pasos: 
 
 - Clonar el proyecto haciendo git clone **git@github.com:Chinaskidev/STEAM_Recomendacion.git**
 
@@ -101,7 +104,7 @@ Si deseaejecutar la API desde el localhost debe seguir los siguientes pasos:
 
 - Instalar dependencias con **pip install -r requirements.txt**
 
-- Ejecutar el archivo **main.py** desde consola activando uvicorn. Si usted importa la libreria uvicorn en el archivo main.py, desde la consola escribir python main.py y correra facilmente. De lo contrario puedes hacer uvicorn main:app --reload
+- Ejecutar el archivo **main.py** desde consola activando uvicorn. Si usted importa la libreria uvicorn en el archivo **main.py**, desde la consola escribir **python main.py** y correra facilmente. De lo contrario puedes hacer **uvicorn main:app --reload**
 
 - Hacer Ctrl + clic sobre la dirección **http://XXX.X.X.X:XXXX**  (eso se visualizara en su Terminal).
 
@@ -116,8 +119,13 @@ Si deseaejecutar la API desde el localhost debe seguir los siguientes pasos:
 
 Para llevar a cabo el despliegue, utilicé la plataforma [RENDER](https://www.render.com) un entorno que facilita la creación y ejecución de aplicaciones y sitios web. Esta plataforma permite el despliegue automático de los desarrollos directamente desde GitHub, proporcionando una integración sencilla y eficiente con el repositorio de código.
 
+Acá el [Deploy/link](https://deploy-9w66.onrender.com)
+
+[VIDEO](https://www.loom.com/share/8cfd463c84d24f748390800dc3718fbb?sid=cbfdb6c9-d06c-42a6-ba63-f5ed52daf784)
+
 ## Conclusión
 
 Este proyecto representó una travesía emocionante y enriquecedora. A lo largo de este trayecto, he aprendido no solo sobre el funcionamiento de un sistema de recomendación, sino también sobre la importancia de las fases iniciales como el ETL y el EDA. La comprensión a fondo de los datos y la limpieza rigurosa son fundamentales para cualquier desarrollo. Además, la implementación de una API con FastAPI y el despliegue con Render han sido experiencias valiosas que han ampliado mi comprensión de cómo llevar a producción un proyecto de Machine Learning.
 
 En resumen, este proyecto no solo ha mejorado mis habilidades técnicas, sino que también ha reforzado la importancia de la planificación y la comprensión de los datos en cada etapa del proceso. 
+
