@@ -91,23 +91,26 @@ Acá el trabajo realizado: [Modelo/Machine-Learning](https://github.com/Chinaski
 
 Si deseaejecutar la API desde el localhost debe seguir los siguientes pasos: 
 
-- Clonar el proyecto haciendo git clone <span style="background-color: #696969">git@github.com:Chinaskidev/STEAM_Recomendacion.git</span>
+- Clonar el proyecto haciendo git clone **git@github.com:Chinaskidev/STEAM_Recomendacion.git**
 
-- Preparación del entorno de trabajo en  <span style="background-color: #696969">Visual Studio Code</span>
-* Crear entorno <span style="background-color: #696969">python -m venv</span> entorno (o el nombre que usted desee)
+- Preparación del entorno de trabajo en **Visual Studio Code**
 
-* Ingresar al entorno haciendo <span style="background-color: #696969">entorno\bin\activate</span>, en el caso si usa Windows entorno\Scripts\activate
-- Instalar dependencias con <span style="background-color: #696969">pip install -r requirements.txt</span>
+* Crear entorno **python -m venv** entorno (o el nombre que usted desee)
 
-- Ejecutar el archivo <span style="background-color: #696969">main.py</span> desde consola activando uvicorn. Si usted importa la libreria uvicorn en el archivo main.py, desde la consola escribir python main.py y correra facilmente. De lo contrario puedes hacer uvicorn main:app --reload
+* Ingresar al entorno haciendo **entorno\bin\activate**, en el caso si usa Windows entorno\Scripts\activate
 
-- Hacer Ctrl + clic sobre la dirección<span style="background-color: #696969">http://XXX.X.X.X:XXXX</span>  (eso se visualizara en su Terminal).
+- Instalar dependencias con **pip install -r requirements.txt**
 
-- Una vez en el navegador,<span style="background-color: #696969">agregar /docs para acceder.</span>  
+- Ejecutar el archivo **main.py** desde consola activando uvicorn. Si usted importa la libreria uvicorn en el archivo main.py, desde la consola escribir python main.py y correra facilmente. De lo contrario puedes hacer uvicorn main:app --reload
 
-- En cada una de las funciones hacer clic en <span style="background-color: #696969"> Try it out</span> y luego introducir el dato que requiera o utilizar los ejemplos por defecto. 
+- Hacer Ctrl + clic sobre la dirección **http://XXX.X.X.X:XXXX**  (eso se visualizara en su Terminal).
 
-- Finalmente Ejecutar y observar la respuesta. <span style="background-color: #696969">Felicidades has creado un Sistema de Recoemndacion!!!</span>
+- Una vez en el navegador, **agregar /docs para acceder**.
+
+- En cada una de las funciones hacer clic en **Try it out** y luego introducir el dato que requiera o utilizar los ejemplos por defecto. 
+
+- Finalmente Ejecutar y observar la respuesta. **Felicidades has creado un Sistema de Recoemndacion!!!**
+
 
 ## Render/Deploy
 
