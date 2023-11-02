@@ -25,10 +25,17 @@
 
 ## Descripción del proyecto:
 
-- Este proyecto se enfoca en el desarrollo de un sistema de recomendación para la plataforma de videojuegos STEAM, el cual se nos ha dado un rol de MLOps Engineer. En el cúal se implementó un proceso de Extracción, Transformación y Carga (ETL) para afrontar la llegada de datos en formato JSON. Esto incluyó un minucioso desanidamiento y limpieza de los datos. 
+- Este proyecto se enfoca en el desarrollo de un sistema de recomendación para la plataforma de videojuegos STEAM, donde se ha asumido el rol de MLOps Engineer. Se ha implementado un proceso de Extracción, Transformación y Carga (ETL) y un Análisis Exploratorio de Datos (EDA). El objetivo principal es desplegar una API con un modelo de Machine Learning capaz de analizar los sentimientos a partir de los comentarios de los usuarios. Este modelo también servirá para ofrecer un sistema de recomendación de videojuegos para la plataforma, mejorando la experiencia de los usuarios.
 
-- En el transcurso del EDA, se llevó a cabo un análisis profundo para comprender la naturaleza de los datos. Esto abarcó un estudio de sentimientos aplicando la librería TextBlob a una de las columnas que contenía los comentarios de los usuarios en el dataset de user_reviews. El resultado fue la creación de una nueva columna que clasifica los sentimientos, utilizando la biblioteca TextBlob, una herramienta de Procesamiento del Lenguaje Natural (NLP). Este procedimiento implicó la evaluación de la polaridad del sentimiento en cada comentario, categorizándolos como negativos, neutrales o positivos.
+[Dataframes](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/imagen/archivos_proyecto.png)
 
-## Preparación de Datos y Optimización
+## Fases del Proyecto
 
-Además de la metodología descrita, se realizaron tareas de preparación específica de los datasets para cada función. Esto permitió optimizar los tiempos y el rendimiento del servicio en la nube, facilitando el despliegue eficiente de la API y resolviendo consultas con mayor eficacia. 
+El proyecto se diseñó siguiendo una estructura basada en principios fundamentales que abarcan distintas etapas:
+
+- ETL (Extracción, Transformación y Carga): Proceso de tratamiento de datos para asegurar su adecuada preparación. [ETL/Enlace](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/PI_etl.ipynb)
+
+- EDA (Análisis Exploratorio de Datos): Análisis en profundidad para comprender la naturaleza y características de los datos. [EDA/Enlace](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/PI_EDA.ipynb)
+- Funciones (endpoints) para el funcionamiento de la API: Implementación de funcionalidades clave para el funcionamiento de la interfaz de programación de aplicaciones. [Funciones/Enlace](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/funciones.ipynb)
+- Modelos de Aprendizaje: Desarrollo de modelos de Machine Learning para el análisis y recomendación de datos. [Modelo/Enlace](https://github.com/Chinaskidev/STEAM_Recomendacion/blob/master/main.py)
+- Implementación de la API utilizando RENDER para el despliegue: Proceso de despliegue utilizando la plataforma RENDER para asegurar su disponibilidad y funcionalidad.
